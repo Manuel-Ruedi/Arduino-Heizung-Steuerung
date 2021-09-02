@@ -1,9 +1,19 @@
-#include <Arduino.h>
+#include <common.h>
 
-void setup() {
-  // put your setup code here, to run once:
+extern EthernetClient Ethernetclient;
+
+void setup()
+{
+  Serial.begin(9600);
+
+  Ethernetinit();
+  MQTTInit();
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop()
+{
+  if (Ethernetloop())
+  {
+    MQTTloop();
+  }
 }
