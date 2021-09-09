@@ -1,10 +1,12 @@
 #include <common.h>
 
 extern EthernetClient Ethernetclient;
-PubSubClient MQTTclient(Ethernetclient);
+extern void MQTTcallback(char *topic, byte *payload, unsigned int length);
+IPAddress server(192, 168, 0, 200);
+PubSubClient MQTTclient(server, 1883, &MQTTcallback, Ethernetclient);
 
 const char Devicename[] = "arduino-heizung";
-const char Username[] = "MQTT-user";
+const char Username[] = MQTTUSERNAME;
 const char Password[] = MQTTPASSWORD;
 
 bool MQTTWasDisconnected = false;
@@ -18,7 +20,6 @@ bool MQTTconnect()
 bool MQTTInit()
 {
     Serial.print("Connecting MQTT-client...");
-    MQTTclient.setServer("192.168.0.201", 1883);
     if (MQTTconnect())
     {
         Serial.println("connected");
@@ -68,6 +69,7 @@ bool checkMQTT()
     }
     else
     {
+        Serial.print("MQTT: ");
         switch (MQTTclient.state())
         {
         case -4:

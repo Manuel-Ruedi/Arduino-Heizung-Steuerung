@@ -5,8 +5,12 @@
 
 #include <Ethernet.h>
 #include <PubSubClient.h>
+#include <Pump.h>
+#include <Valve.h>
 
 bool Ethernetinit();
 bool Ethernetloop();
 bool MQTTInit();
 bool MQTTloop();
+
+extern PubSubClient MQTTclient;

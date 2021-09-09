@@ -1,15 +1,17 @@
 #include <common.h>
 
+// initialize the library instance:
+EthernetClient Ethernetclient;
+
 // assign a MAC address for the ethernet controller.
 byte mac[] = {
     0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
 
 // for manual configuration:
 IPAddress ip(192, 168, 0, 147);
-// initialize the library instance:
-EthernetClient Ethernetclient;
 
 bool EthernetWasDisconnected = false;
+extern bool checkMQTT();
 extern bool MQTTWasDisconnected;
 
 bool checkEthernet(); // return true if connection is ok else false
@@ -59,6 +61,7 @@ bool checkEthernet()
             Serial.print("IP: ");
             Serial.println(Ethernet.localIP());
             EthernetWasDisconnected = false;
+            MQTTWasDisconnected = false;
         }
         return true;
     }
@@ -68,7 +71,6 @@ bool checkEthernet()
         {
             Serial.println("Ethernet: no Link!");
             EthernetWasDisconnected = true;
-            MQTTWasDisconnected = true;
         }
         return false;
     }
