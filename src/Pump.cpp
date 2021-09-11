@@ -6,6 +6,7 @@ Pump::Pump(const char *name, uint8_t pin)
 {
     this->name = name;
     this->pin = pin;
+    String topic("heizung/pumpen/" + this->name + "/set");
     pinMode(pin, OUTPUT);
 }
 
@@ -51,11 +52,11 @@ bool Pump::MQTTPublishState()
 
     if (isRunning)
     {
-        payload = "on";
+        payload = "ON";
     }
     else
     {
-        payload = "off";
+        payload = "OFF";
     }
 
     return MQTTclient.publish(topic.c_str(), payload.c_str());

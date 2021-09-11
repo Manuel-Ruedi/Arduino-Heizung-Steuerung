@@ -7,6 +7,7 @@
 #include <PubSubClient.h>
 #include <Pump.h>
 #include <Valve.h>
+#include <TempSensor.h>
 
 bool Ethernetinit();
 bool Ethernetloop();

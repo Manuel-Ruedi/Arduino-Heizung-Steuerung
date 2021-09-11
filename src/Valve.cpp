@@ -6,7 +6,13 @@ Valve::Valve(const char *name, uint8_t pin)
 {
     this->name = name;
     this->pin = pin;
-    this->isRunning = false;
+    String topic("heizung/pumpen/" + this->name + "/set");
+    pinMode(pin, OUTPUT);
+}
+
+Valve::~Valve()
+{
+    MQTTclient.unsubscribe(topic.c_str());
 }
 
 // Accsessors
@@ -40,17 +46,12 @@ bool Valve::MQTTPublishState()
 
     if (isRunning)
     {
-        payload = "on";
+        payload = "ON";
     }
     else
     {
-        payload = "off";
+        payload = "OFF";
     }
-    Serial.println("publishing: ");
-    Serial.print("topic: ");
-    Serial.println(topic.c_str());
-    Serial.print("payload: ");
-    Serial.println(payload.c_str());
 
     return MQTTclient.publish(topic.c_str(), payload.c_str());
 }
@@ -60,4 +61,18 @@ bool Valve::MQTTSubscribe()
     String topic("heizung/ventile/" + name + "/set");
 
     return MQTTclient.subscribe(topic.c_str());
+}
+
+void Valve::handleMQTTCallback(String massage)
+{
+    if (massage == "on")
+    {
+        activate();
+    }
+    else if (massage == "off")
+    {
+        deactivate();
+    }
+
+    MQTTPublishState();
 }

@@ -2,7 +2,7 @@
 
 extern EthernetClient Ethernetclient;
 extern void MQTTcallback(char *topic, byte *payload, unsigned int length);
-IPAddress server(192, 168, 0, 200);
+IPAddress server(192, 168, 0, 201);
 PubSubClient MQTTclient(server, 1883, &MQTTcallback, Ethernetclient);
 
 const char Devicename[] = "arduino-heizung";
@@ -14,7 +14,13 @@ bool checkMQTT();
 
 bool MQTTconnect()
 {
-    return MQTTclient.connect(Devicename, Username, Password);
+    if (MQTTclient.connect(Devicename, Username, Password, "heizung/status", 1, true, "offline"))
+    {
+        MQTTclient.publish("heizung/status", "online", true);
+        return true;
+    }
+    else
+        return false;
 }
 
 bool MQTTInit()
@@ -47,7 +53,7 @@ bool MQTTloop()
 
 bool checkMQTT()
 {
-    if (MQTTclient.state() == 0) //everything ok?
+    if (MQTTclient.state() == 0) //everything ok
     {
         if (MQTTWasDisconnected)
         {

@@ -7,7 +7,7 @@ private:
 
     String name;
     uint8_t pin;
-    bool isRunning;
+    bool isRunning = false;
     String topic;
 
 public:
