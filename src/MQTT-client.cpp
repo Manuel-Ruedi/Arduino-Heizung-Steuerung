@@ -1,22 +1,22 @@
 #include <common.h>
 
-extern Pump pump1("pump1", 53);
-extern Pump pump2("pump2", 52);
-extern Pump pump3("pump3", 51);
-extern Pump pump4("pump4", 50);
-extern Pump pump5("pump5", 49);
-extern Pump pump6("pump6", 48);
-extern Pump pump7("pump7", 47);
-extern Pump pump8("pump8", 46);
+extern Pump pump2;
+extern Pump pump1;
+extern Pump pump3;
+extern Pump pump4;
+extern Pump pump5;
+extern Pump pump6;
+extern Pump pump7;
+extern Pump pump8;
 
-extern Valve venil1("ventil1", 22);
-extern Valve venil2("ventil2", 23);
-extern Valve venil3("ventil3", 24);
-extern Valve venil4("ventil4", 25);
-extern Valve venil5("ventil5", 26);
-extern Valve venil6("ventil6", 27);
-extern Valve venil7("ventil7", 28);
-extern Valve venil8("ventil8", 29);
+extern Valve venil1;
+extern Valve venil2;
+extern Valve venil3;
+extern Valve venil4;
+extern Valve venil5;
+extern Valve venil6;
+extern Valve venil7;
+extern Valve venil8;
 
 extern EthernetClient Ethernetclient;
 extern void MQTTcallback(char *topic, byte *payload, unsigned int length);

@@ -29,8 +29,18 @@ TempSensor sensor5("sensor5", A5, 3.85, 1000, 1040);
 TempSensor sensor6("sensor6", A6, 3.85, 1000, 1040);
 TempSensor sensor7("sensor7", A7, 3.85, 1000, 1040);
 
+BinarySensor binarySensor0("sensor0", 0);
+BinarySensor binarySensor1("sensor1", 1);
+BinarySensor binarySensor2("sensor2", 2);
+BinarySensor binarySensor3("sensor3", 3);
+BinarySensor binarySensor4("sensor4", 4);
+BinarySensor binarySensor5("sensor5", 5);
+BinarySensor binarySensor6("sensor6", 6);
+BinarySensor binarySensor7("sensor7", 7);
+
 unsigned long now = 0;
 unsigned long nextMassage = 0;
+unsigned long nextSteteCheck = 0;
 
 void setup()
 {
@@ -63,6 +73,17 @@ void loop()
         sensor6.MQTTPublishState();
         sensor7.MQTTPublishState();
         nextMassage = now + 2000; //next massage in 2s
+
+        nextSteteCheck = now + 100; //all 0.1s one state check
+
+        binarySensor0.MQTTPublishState();
+        binarySensor1.MQTTPublishState();
+        binarySensor2.MQTTPublishState();
+        binarySensor3.MQTTPublishState();
+        binarySensor4.MQTTPublishState();
+        binarySensor5.MQTTPublishState();
+        binarySensor6.MQTTPublishState();
+        binarySensor7.MQTTPublishState();
       }
     }
     else

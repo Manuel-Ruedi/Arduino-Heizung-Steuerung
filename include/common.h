@@ -8,6 +8,7 @@
 #include <Pump.h>
 #include <Valve.h>
 #include <TempSensor.h>
+#include <BinarySensor.h>
 
 bool Ethernetinit();
 bool Ethernetloop();
