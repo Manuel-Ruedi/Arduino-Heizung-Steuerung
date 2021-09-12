@@ -20,14 +20,16 @@ Valve venil6("ventil6", 27);
 Valve venil7("ventil7", 28);
 Valve venil8("ventil8", 29);
 
-TempSensor sensor0("sensor0", A0, 3.85, 1000, 1040);
-TempSensor sensor1("sensor1", A1, 3.85, 1000, 1040);
-TempSensor sensor2("sensor2", A2, 3.85, 1000, 1050);
-TempSensor sensor3("sensor3", A3, 3.85, 1000, 1112);
-TempSensor sensor4("sensor4", A4, 3.85, 1000, 1040);
-TempSensor sensor5("sensor5", A5, 3.85, 1000, 1040);
-TempSensor sensor6("sensor6", A6, 3.85, 1000, 1040);
-TempSensor sensor7("sensor7", A7, 3.85, 1000, 1040);
+//  name, pin, steigung ohm/c°, ohm bei 0°C, vorwiderstand in ohm
+
+TempSensor sensor0("sensor0", A0, 4.05, 1000, 1000);
+TempSensor sensor1("sensor1", A1, 3.85, 1021, 1000);
+TempSensor sensor2("sensor2", A2, 3.85, 972, 1000);
+TempSensor sensor3("sensor3", A3, 3.85, 1026, 1000);
+TempSensor sensor4("sensor4", A4, 3.85, 1007, 1000);
+TempSensor sensor5("sensor5", A5, 3.85, 1004, 1000);
+TempSensor sensor6("sensor6", A6, 3.85, 999, 1000);
+TempSensor sensor7("sensor7", A7, 3.85, 1021, 1000);
 
 BinarySensor binarySensor0("sensor0", 0);
 BinarySensor binarySensor1("sensor1", 1);
@@ -72,18 +74,22 @@ void loop()
         sensor5.MQTTPublishState();
         sensor6.MQTTPublishState();
         sensor7.MQTTPublishState();
+
         nextMassage = now + 2000; //next massage in 2s
+      }
+      if (now > nextSteteCheck)
+      {
+
+        binarySensor0.updateState();
+        binarySensor1.updateState();
+        binarySensor2.updateState();
+        binarySensor3.updateState();
+        binarySensor4.updateState();
+        binarySensor5.updateState();
+        binarySensor6.updateState();
+        binarySensor7.updateState();
 
         nextSteteCheck = now + 100; //all 0.1s one state check
-
-        binarySensor0.MQTTPublishState();
-        binarySensor1.MQTTPublishState();
-        binarySensor2.MQTTPublishState();
-        binarySensor3.MQTTPublishState();
-        binarySensor4.MQTTPublishState();
-        binarySensor5.MQTTPublishState();
-        binarySensor6.MQTTPublishState();
-        binarySensor7.MQTTPublishState();
       }
     }
     else

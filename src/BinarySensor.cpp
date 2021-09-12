@@ -10,16 +10,33 @@ BinarySensor::BinarySensor(String name, uint8_t pin)
 
 bool BinarySensor::MQTTPublishState()
 {
+    if (isOn)
+    {
+        MQTTclient.publish(topic.c_str(), "ON", true);
+    }
+    else
+    {
+        MQTTclient.publish(topic.c_str(), "OFF", true);
+    }
+}
+
+void BinarySensor::updateState()
+{
     switch (digitalRead(pin))
     {
     case HIGH:
-        MQTTclient.publish(topic.c_str(), "ON");
+        if (!isOn)
+        {
+            isOn = true;
+            MQTTPublishState();
+        }
         break;
     case LOW:
-        MQTTclient.publish(topic.c_str(), "OFF");
-        break;
-    default:
+        if (isOn)
+        {
+            isOn = false;
+            MQTTPublishState();
+        }
         break;
     };
-    return false;
 }
