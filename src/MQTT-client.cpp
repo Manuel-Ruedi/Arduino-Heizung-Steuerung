@@ -1,5 +1,23 @@
 #include <common.h>
 
+extern Pump pump1("pump1", 53);
+extern Pump pump2("pump2", 52);
+extern Pump pump3("pump3", 51);
+extern Pump pump4("pump4", 50);
+extern Pump pump5("pump5", 49);
+extern Pump pump6("pump6", 48);
+extern Pump pump7("pump7", 47);
+extern Pump pump8("pump8", 46);
+
+extern Valve venil1("ventil1", 22);
+extern Valve venil2("ventil2", 23);
+extern Valve venil3("ventil3", 24);
+extern Valve venil4("ventil4", 25);
+extern Valve venil5("ventil5", 26);
+extern Valve venil6("ventil6", 27);
+extern Valve venil7("ventil7", 28);
+extern Valve venil8("ventil8", 29);
+
 extern EthernetClient Ethernetclient;
 extern void MQTTcallback(char *topic, byte *payload, unsigned int length);
 IPAddress server(192, 168, 0, 201);
@@ -17,6 +35,40 @@ bool MQTTconnect()
     if (MQTTclient.connect(Devicename, Username, Password, "heizung/status", 1, true, "offline"))
     {
         MQTTclient.publish("heizung/status", "online", true);
+        pump1.MQTTSubscribe();
+        pump1.MQTTPublishState();
+        pump2.MQTTSubscribe();
+        pump2.MQTTPublishState();
+        pump3.MQTTSubscribe();
+        pump3.MQTTPublishState();
+        pump4.MQTTSubscribe();
+        pump4.MQTTPublishState();
+        pump5.MQTTSubscribe();
+        pump5.MQTTPublishState();
+        pump6.MQTTSubscribe();
+        pump6.MQTTPublishState();
+        pump7.MQTTSubscribe();
+        pump7.MQTTPublishState();
+        pump8.MQTTSubscribe();
+        pump8.MQTTPublishState();
+
+        venil1.MQTTSubscribe();
+        venil1.MQTTPublishState();
+        venil2.MQTTSubscribe();
+        venil2.MQTTPublishState();
+        venil3.MQTTSubscribe();
+        venil3.MQTTPublishState();
+        venil4.MQTTSubscribe();
+        venil4.MQTTPublishState();
+        venil5.MQTTSubscribe();
+        venil5.MQTTPublishState();
+        venil6.MQTTSubscribe();
+        venil6.MQTTPublishState();
+        venil7.MQTTSubscribe();
+        venil7.MQTTPublishState();
+        venil8.MQTTSubscribe();
+        venil8.MQTTPublishState();
+
         return true;
     }
     else

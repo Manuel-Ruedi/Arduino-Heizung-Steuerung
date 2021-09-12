@@ -33,8 +33,8 @@ float TempSensor::getTemp()
 
     float VtempSensor = (averageReading / 4095) * 3.3;
     float VrefResistor = 3.3 - VtempSensor;
-    float currunt = VrefResistor / refResistor;
-    float tempSensorResistanz = VtempSensor / currunt;
+    float current = VrefResistor / refResistor;
+    float tempSensorResistanz = VtempSensor / current;
     float temp = (tempSensorResistanz - baseResistance) / tempCoefficient;
 
     // Serial.print(name + " --> ");
