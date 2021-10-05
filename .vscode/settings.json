@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "fstab": "ini",
+        "typeinfo": "cpp",
+        "system_error": "cpp"
+    }
+}

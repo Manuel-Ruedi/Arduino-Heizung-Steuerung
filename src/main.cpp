@@ -11,6 +11,9 @@ Pump pump6("pump6", 48);
 Pump pump7("pump7", 47);
 Pump pump8("pump8", 46);
 
+PWMPump PWMPump1("PWMPump1", DAC0);
+PWMPump PWMPump2("PWMPump2", DAC1);
+
 Valve venil1("ventil1", 22);
 Valve venil2("ventil2", 23);
 Valve venil3("ventil3", 24);
@@ -44,6 +47,8 @@ unsigned long now = 0;
 unsigned long nextMassage = 0;
 unsigned long nextSteteCheck = 0;
 
+int watchdogTime = 1000;
+
 void setup()
 {
   pinMode(11, OUTPUT);
@@ -54,10 +59,15 @@ void setup()
 
   Ethernetinit();
   MQTTInit();
+
+  watchdogEnable(watchdogTime);
 }
 
 void loop()
 {
+
+  watchdogReset();
+
   now = millis();
   if (Ethernetloop())
   {

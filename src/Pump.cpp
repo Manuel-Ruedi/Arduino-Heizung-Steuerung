@@ -6,7 +6,7 @@ Pump::Pump(const char *name, uint8_t pin)
 {
     this->name = name;
     this->pin = pin;
-    String topic("heizung/pumpen/" + this->name + "/set");
+    String topic("heizung/pumpen/" + this->name);
     pinMode(pin, OUTPUT);
 }
 
@@ -40,13 +40,13 @@ void Pump::deactivate()
 
 bool Pump::MQTTSubscribe()
 {
-    String topic("heizung/pumpen/" + name + "/set");
+    String topic(this->topic + "/set");
     return MQTTclient.subscribe(topic.c_str());
 }
 
 bool Pump::MQTTPublishState()
 {
-    String topic("heizung/pumpen/" + name + "/status");
+    String topic(this->topic + "/status");
 
     String payload;
 

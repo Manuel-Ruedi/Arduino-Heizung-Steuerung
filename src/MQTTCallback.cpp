@@ -9,6 +9,9 @@ extern Pump pump6;
 extern Pump pump7;
 extern Pump pump8;
 
+extern PWMPump PWMPump1;
+extern PWMPump PWMPump2;
+
 extern Valve venil1;
 extern Valve venil2;
 extern Valve venil3;
@@ -61,6 +64,17 @@ void MQTTcallback(char *topic, byte *payload, unsigned int length)
         else if (S_topic.startsWith("heizung/pumpen/pump8"))
         {
             pump8.handleMQTTCallback(message);
+        }
+    }
+    else if (S_topic.startsWith("heizung/PWMPumpen"))
+    {
+        if (S_topic.startsWith("heizung/PWMPumpen/PWMPump1"))
+        {
+            PWMPump1.handleMQTTCallback(message);
+        }
+        else if (S_topic.startsWith("heizung/PWMPumpen/PWMPump2"))
+        {
+            PWMPump2.handleMQTTCallback(message);
         }
     }
     else if (S_topic.startsWith("heizung/ventile"))

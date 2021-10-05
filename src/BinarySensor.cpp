@@ -12,11 +12,11 @@ bool BinarySensor::MQTTPublishState()
 {
     if (isOn)
     {
-        MQTTclient.publish(topic.c_str(), "ON", true);
+        return MQTTclient.publish(topic.c_str(), "ON", true);
     }
     else
     {
-        MQTTclient.publish(topic.c_str(), "OFF", true);
+        return MQTTclient.publish(topic.c_str(), "OFF", true);
     }
 }
 
